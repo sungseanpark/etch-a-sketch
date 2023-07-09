@@ -1,4 +1,4 @@
-const totalLength = 400;
+const totalLength = 500;
 const gridContainer = document.querySelector('.grid-container');
 const dimInitial = totalLength/16;
 

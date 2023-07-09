@@ -4,6 +4,7 @@ body {
     align-items: center;
     font-family: Cursive, sans-serif;
     gap: 24px;
+    background-color: #E1D9D1;
 }
 
 .title {
@@ -12,8 +13,8 @@ body {
 }
 
 .grid-container {
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     border: 10px;
     border-style: solid;
     border-color: gray;
@@ -23,7 +24,7 @@ body {
 }
 
 .grid-row {
-    width: 400px;
+    width: 500px;
     display: flex;
 }
 
@@ -34,9 +35,26 @@ body {
     border-color: gray;
     margin: 0;
     transition: 1s;
+    background-color: white;
 }
 
 .marked {
     background-color: black;
     transition: none;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 64px;
+}
+
+button {
+    padding: 10px;
 }
