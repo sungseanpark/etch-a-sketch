@@ -2,7 +2,21 @@ const totalLength = 400;
 const gridContainer = document.querySelector('.grid-container');
 const dimInitial = totalLength/16;
 
+function startMarking(e) {
+    mark(e);
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.addEventListener('mouseover', mark);
+        grid.addEventListener('mouseup', stopMarking);
+    });
+}
 
+function stopMarking(e) {
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.removeEventListener('mouseover', mark);
+    });
+}
 
 function mark(e) {
     e.target.classList.add('marked');
@@ -28,7 +42,7 @@ function generateGrid(numPerSide) {
 
     const grids = document.querySelectorAll('.grid');
     grids.forEach(grid => {
-        grid.addEventListener('mouseover', mark);
+        grid.addEventListener('mousedown', startMarking);
     });
 }
 
