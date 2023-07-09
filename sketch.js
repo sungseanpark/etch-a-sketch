@@ -64,10 +64,19 @@ function changeGrid(e) {
     generateGrid(newNumPerSide);
 }
 
+function clear(e) {
+    const markedGrids = document.querySelectorAll('.marked');
+    markedGrids.forEach( markedGrid => {
+        markedGrid.classList.remove('marked');
+    });
+}
+
 
 generateGrid(16);
 const changeSizeButton = document.querySelector('#change-size');
 changeSizeButton.addEventListener('click', changeGrid);
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', clear);
 
 /* for(let i = 0; i < 16; i++) {
     const gridRow = document.createElement('div');
