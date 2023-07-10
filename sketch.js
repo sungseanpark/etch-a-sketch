@@ -35,10 +35,12 @@ function stopErasing(e) {
     const grids = document.querySelectorAll('.grid');
     grids.forEach(grid => {
         grid.removeEventListener('mouseover', erase);
+        grid.classList.remove('nontransition');
     });
 }
 
 function erase(e) {
+    e.target.classList.add('nontransition');
     e.target.classList.remove('marked');
 }
 
