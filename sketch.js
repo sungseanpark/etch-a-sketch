@@ -180,11 +180,16 @@ function toggle(e) {
     e.target.removeEventListner('click', toggle);
 }
 
+function updateGridSizeDisplayer(input) {
+    const gridSizeDisplayer = document.querySelector('#grid-value');
+    gridSizeDisplayer.textContent = input + ' x ' + input;
+}
+
 
 const darkModeButton = document.querySelector('#dark-mode');
 darkModeButton.classList.add('toggled');
-const changeSizeButton = document.querySelector('#change-size');
-changeSizeButton.addEventListener('click', changeGrid);
+/*const changeSizeButton = document.querySelector('#change-size');
+changeSizeButton.addEventListener('click', changeGrid);*/
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clear);
 const eraserModeButton = document.querySelector('#eraser-mode');
@@ -193,4 +198,7 @@ const rainbowModeButton = document.querySelector('#rainbow-mode');
 rainbowModeButton.addEventListener('click', toggle);
 
 generateGrid(16);
+
+const rangeSlider = document.querySelector('#myRange');
+/*rangeSlider.addEventListener("input", updateGridSizeDisplayer);*/
 

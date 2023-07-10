@@ -14,10 +14,12 @@
             <button class = "mode" id ="rainbow-mode">Rainbow Mode</button>
             <button class = "mode" id ="eraser-mode">Eraser</button>
             <button id = "clear">Clear</button>
-            <button id = "change-size">Change Grid Size</button>
             <div class="slidecontainer">
-                <input type="range" min="1" max="64" value="16" class="slider" id="myRange" onchange="updateGrid(value)">
-              </div>
+                <input type="range" min="1" max="64" value="16" class="slider" id="myRange" onchange="updateGrid(value)" oninput="updateGridSizeDisplayer(value)">
+            </div>
+            <div class="grid-size">
+                <span id="grid-value">16 x 16</span>
+            </div>
         </div>
         <div class = "grid-container"></div>
     </div>
