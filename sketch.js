@@ -112,6 +112,14 @@ function changeGrid(e) {
     generateGrid(newNumPerSide);
 }
 
+function updateGrid(newNumPerSide){
+    while(gridContainer.firstChild){
+        gridContainer.removeChild(gridContainer.firstChild);
+    }
+
+    generateGrid(newNumPerSide);
+}
+
 function clear(e) {
     const markedGrids = document.querySelectorAll('.marked');
     markedGrids.forEach( markedGrid => {
@@ -185,3 +193,4 @@ const rainbowModeButton = document.querySelector('#rainbow-mode');
 rainbowModeButton.addEventListener('click', toggle);
 
 generateGrid(16);
+
