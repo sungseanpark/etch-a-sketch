@@ -20,6 +20,7 @@ function stopMarking(e) {
 
 function mark(e) {
     e.target.classList.add('marked');
+    e.target.style['background-color'] = 'black';
 }
 
 function startErasing(e) {
@@ -42,6 +43,28 @@ function stopErasing(e) {
 function erase(e) {
     e.target.classList.add('nontransition');
     e.target.classList.remove('marked');
+    e.target.style['background-color'] = 'white';
+}
+
+function startRainbowing(e) {
+    rainbow(e);
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.addEventListener('mouseover', rainbow);
+        grid.addEventListener('mouseup', stopRainbowing);
+    });
+}
+
+function stopRainbowing(e) {
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.removeEventListener('mouseover', rainbow);
+    });
+}
+
+function rainbow(e) {
+    e.target.classList.add('marked');
+    e.target.style['background-color'] = "#" + Math.floor(Math.random()*16777215).toString(16);
 }
 
 function generateGrid(numPerSide) {
@@ -93,6 +116,7 @@ function clear(e) {
     const markedGrids = document.querySelectorAll('.marked');
     markedGrids.forEach( markedGrid => {
         markedGrid.classList.remove('marked');
+        markedGrid.style['background-color'] = 'white';
     });
 }
 
@@ -107,6 +131,11 @@ function addGridEventListeners(newMode) {
         case 'eraser-mode':
             grids.forEach(grid => {
                 grid.addEventListener('mousedown', startErasing);
+            });
+            break;
+        case 'rainbow-mode':
+            grids.forEach(grid => {
+                grid.addEventListener('mousedown', startRainbowing);
             });
             break;            
     }
@@ -123,6 +152,11 @@ function removeGridEventListeners(oldMode) {
         case 'eraser-mode':
             grids.forEach(grid => {
                 grid.removeEventListener('mousedown', startErasing);
+            });
+            break;
+        case 'rainbow-mode':
+            grids.forEach(grid => {
+                grid.removeEventListener('mousedown', startRainbowing);
             });
             break;
     }
@@ -147,26 +181,7 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clear);
 const eraserModeButton = document.querySelector('#eraser-mode');
 eraserModeButton.addEventListener('click', toggle);
+const rainbowModeButton = document.querySelector('#rainbow-mode');
+rainbowModeButton.addEventListener('click', toggle);
 
 generateGrid(16);
-/* for(let i = 0; i < 16; i++) {
-    const gridRow = document.createElement('div');
-    gridRow.classList.add('grid-row');
-    gridRow.style.height = dimInitial +'px';
-
-    for(let j = 0; j < 16; j ++) {
-        const grid = document.createElement('div');
-        grid.classList.add('grid');
-        grid.style.width = dimInitial + 'px';
-        grid.style.height = dimInitial + 'px';
-        gridRow.appendChild(grid);
-    }
-
-    gridContainer.appendChild(gridRow);
-} */
-
-
-/* const grids = document.querySelectorAll('.grid');
-grids.forEach(grid => {
-    grid.addEventListener('mouseover', mark);
-}); */
