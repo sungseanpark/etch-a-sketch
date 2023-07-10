@@ -22,6 +22,26 @@ function mark(e) {
     e.target.classList.add('marked');
 }
 
+function startErasing(e) {
+    erase(e);
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.addEventListener('mouseover', erase);
+        grid.addEventListener('mouseup', stopErasing);
+    });
+}
+
+function stopErasing(e) {
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+        grid.removeEventListener('mouseover', erase);
+    });
+}
+
+function erase(e) {
+    e.target.classList.remove('marked');
+}
+
 function generateGrid(numPerSide) {
     const dim = totalLength / numPerSide;
     for(let i = 0; i < numPerSide; i++) {
@@ -40,10 +60,13 @@ function generateGrid(numPerSide) {
         gridContainer.appendChild(gridRow);
     }
 
-    const grids = document.querySelectorAll('.grid');
+    const currentToggled = document.querySelector('.toggled');
+    addGridEventListeners(currentToggled.id);
+
+    /*const grids = document.querySelectorAll('.grid');
     grids.forEach(grid => {
         grid.addEventListener('mousedown', startMarking);
-    });
+    });*/
 }
 
 function changeGrid(e) {
@@ -71,13 +94,59 @@ function clear(e) {
     });
 }
 
+function addGridEventListeners(newMode) {
+    const grids = document.querySelectorAll('.grid');
+    switch(newMode) {
+        case 'dark-mode':
+            grids.forEach(grid => {
+                grid.addEventListener('mousedown', startMarking);
+            });
+            break;
+        case 'eraser-mode':
+            grids.forEach(grid => {
+                grid.addEventListener('mousedown', startErasing);
+            });
+            break;            
+    }
+}
 
-generateGrid(16);
+function removeGridEventListeners(oldMode) {
+    const grids = document.querySelectorAll('.grid');
+    switch(oldMode) {
+        case 'dark-mode':
+            grids.forEach(grid => {
+                grid.removeEventListener('mousedown', startMarking);
+            });
+            break;
+        case 'eraser-mode':
+            grids.forEach(grid => {
+                grid.removeEventListener('mousedown', startErasing);
+            });
+            break;
+    }
+}
+
+function toggle(e) {
+    const currentToggled = document.querySelector('.toggled');
+    currentToggled.classList.remove('toggled');
+    e.target.classList.add('toggled');
+    removeGridEventListeners(currentToggled.id);
+    addGridEventListeners(e.target.id);
+    currentToggled.addEventListener('click', toggle);
+    e.target.removeEventListner('click', toggle);
+}
+
+
+const darkModeButton = document.querySelector('#dark-mode');
+darkModeButton.classList.add('toggled');
 const changeSizeButton = document.querySelector('#change-size');
 changeSizeButton.addEventListener('click', changeGrid);
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clear);
+const eraserModeButton = document.querySelector('#eraser-mode');
+eraserModeButton.addEventListener('click', toggle);
 
+generateGrid(16);
 /* for(let i = 0; i < 16; i++) {
     const gridRow = document.createElement('div');
     gridRow.classList.add('grid-row');
